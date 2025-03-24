@@ -8,7 +8,7 @@ import wave
 import openai
 import whisper
 import tempfile
-from streamlit_webrtc import webrtc_streamer, WebRtcMode, ClientSettings
+from streamlit_webrtc import webrtc_streamer, WebRtcMode
 import av
 
 # -------------------- Menu --------------------
@@ -80,10 +80,6 @@ ctx = webrtc_streamer(
     key="mic",
     mode=WebRtcMode.SENDRECV,
     in_audio=True,
-    client_settings=ClientSettings(
-        media_stream_constraints={"audio": True, "video": False},
-        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-    ),
     audio_processor_factory=AudioProcessor,
 )
 
