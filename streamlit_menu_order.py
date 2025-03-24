@@ -77,12 +77,12 @@ class AudioProcessor:
         return frame
 
 ctx = webrtc_streamer(
-    key="mic",
+    key="live-audio",
     mode=WebRtcMode.SENDRECV,
-    in_audio=True,
-    audio_processor_factory=AudioProcessor,
+    audio_receiver_size=1024,
+    rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    media_stream_constraints={"audio": True, "video": False},
 )
-
 # -------------------- Transcription + LLM Correction --------------------
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
