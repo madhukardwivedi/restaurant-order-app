@@ -10,6 +10,7 @@ import whisper
 import tempfile
 from streamlit_webrtc import webrtc_streamer, WebRtcMode
 import av
+import asyncio
 
 # -------------------- Menu --------------------
 menu = [
@@ -76,12 +77,19 @@ class AudioProcessor:
         self.recorded_frames.append(audio)
         return frame
 
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
+
 ctx = webrtc_streamer(
-    key="live-audio",
+    key="mic",
     mode=WebRtcMode.SENDRECV,
     audio_receiver_size=1024,
-    rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
     media_stream_constraints={"audio": True, "video": False},
+    frontend_rtc_configuration={
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    },
 )
 # -------------------- Transcription + LLM Correction --------------------
 openai.api_key = st.secrets["OPENAI_API_KEY"]
