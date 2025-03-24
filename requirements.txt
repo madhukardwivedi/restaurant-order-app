@@ -1,9 +1,8 @@
 streamlit
-pandas
-numpy
-sounddevice
+streamlit-webrtc
 openai
 whisper
 faster-whisper
+pandas
+numpy
 scipy
-noisereduce
