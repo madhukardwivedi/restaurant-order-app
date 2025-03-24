@@ -1,5 +1,6 @@
-streamlit
+streamlit==1.25.0
 streamlit-webrtc==0.43.0
+watchdog==2.1.9  # Optional, for file-watching stability
 openai
 whisper
 faster-whisper
